@@ -32,3 +32,7 @@
 *.app
 
 # project specific
+__pycache__/
+*.py[cod]
+img_processing/proto
+img_processing/src/proto_generated
