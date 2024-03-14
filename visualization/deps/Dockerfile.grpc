@@ -1,0 +1,35 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  autoconf \
+  automake \
+  build-essential \
+  cmake \
+  curl \
+  g++ \
+  git \
+  libtool \
+  make \
+  pkg-config \
+  unzip \
+  software-properties-common \
+  libssl-dev \
+  zlib1g-dev \
+  libpthread-stubs0-dev \
+  && apt-get clean
+
+ENV GRPC_RELEASE_TAG v1.61.0
+
+WORKDIR /
+
+RUN git clone -b ${GRPC_RELEASE_TAG} --depth 1 https://github.com/grpc/grpc && \
+    cd grpc && \
+    git submodule update --init --recursive
+
+RUN mkdir -p /grpc/cmake/build
+
+WORKDIR /grpc/cmake/build
+RUN cmake -DCMAKE_INSTALL_PREFIX=../../install -DgRPC_INSTALL=ON -DgRPC_BUILD_TESTS=OFF -DgRPC_ZLIB_PROVIDER=package -Dprotobuf_ABSL_PROVIDER=package -DgRPC_SSL_PROVIDER=package -DCMAKE_BUILD_TYPE=Release ../..
+RUN make -j4 install

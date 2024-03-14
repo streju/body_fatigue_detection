@@ -1,0 +1,8 @@
+{
+    "version": 0.1,
+    "middleware": "grpc",
+    "data_processing_server_addr": "localhost",
+    "data_processing_server_port": 4555,
+    "visualization_server_addr": "localhost",
+    "visualization_server_port": 4557
+}

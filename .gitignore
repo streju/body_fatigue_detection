@@ -31,8 +31,14 @@
 *.out
 *.app
 
-# project specific
+.vscode
+
+# img_processing
 __pycache__/
 *.py[cod]
 img_processing/proto
 img_processing/src/proto_generated
+
+# visualization
+visualization/build*
+visualization/src/proto_include

@@ -1,0 +1,9 @@
+BasedOnStyle: microsoft
+IndentWidth: 4
+AccessModifierOffset: -4
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBinaryOperators: NonAssignment
+AlwaysBreakTemplateDeclarations: Yes
+AllowShortFunctionsOnASingleLine: Inline
+ColumnLimit: 120
