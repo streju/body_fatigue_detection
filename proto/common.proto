@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package common;
+
+message MsgHeader {
+    uint64 timestamp = 1;
+}
+
+message Result {
+    Status status = 1;
+}
+
+enum Status {
+    Succeeded = 0;
+    Failed = 1;
+}
+

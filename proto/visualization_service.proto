@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import public "image.proto";
+
+package visualization;
+
+service VisualizationService {
+    rpc HandleImageNotif(img_common.CameraFrame) returns (common.Result) {}
+}

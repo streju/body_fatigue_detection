@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+import public "common.proto";
+import public "detected_landmarks.proto";
+
+package img_processor;
+
+service DataProcessor {
+    rpc HandleShouldersCoordinates(landmarks.ShouldersCoordinates) returns (.common.Result) {}
+}

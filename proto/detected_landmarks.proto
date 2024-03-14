@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package landmarks;
+
+message Coordinates {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message ShouldersCoordinates {
+  optional Coordinates leftShoulder = 1;
+  optional Coordinates rightShoulder = 2;
+}
