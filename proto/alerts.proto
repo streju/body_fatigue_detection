@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package alerts;
+
+enum AlertType {
+  ShoulderPose = 0;
+}
+
+enum Action {
+  Start = 0;
+  Stop = 1;
+}
+
+message Alert {
+  AlertType type = 1;
+  Action action = 2;
+}

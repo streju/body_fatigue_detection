@@ -26,7 +26,8 @@ impl ProtoDataProcessor for GrpcDataListener {
 
         self.data_processor
             .as_ref()
-            .start_shoulders_analysis(from_proto_shoulders_coordinates(request.get_ref()));
+            .start_shoulders_analysis(from_proto_shoulders_coordinates(request.get_ref()))
+            .await;
 
         Ok(Response::new(CommonResult {
             status: CommonStatus::Succeeded.into(),

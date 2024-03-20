@@ -10,6 +10,8 @@ set(PROJECT_SOURCES
     
     ${CMAKE_CURRENT_SOURCE_DIR}/mainwindow.ui
     ${CMAKE_CURRENT_SOURCE_DIR}/middleware/grpc/ImageListener.cpp
+    ${PROTOBUF_INC_DIR}/alerts.grpc.pb.cc
+    ${PROTOBUF_INC_DIR}/alerts.pb.cc
     ${PROTOBUF_INC_DIR}/common.grpc.pb.cc
     ${PROTOBUF_INC_DIR}/common.pb.cc
     ${PROTOBUF_INC_DIR}/image.grpc.pb.cc

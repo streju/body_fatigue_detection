@@ -1,6 +1,10 @@
+use super::proto::alerts::Alert;
+use super::proto::common::Result as ProtoResult;
 use super::proto::visualization::visualization_service_client::VisualizationServiceClient;
+
 use crate::middleware::types::VisualizationClient;
 use std::sync::Arc;
+use tokio::sync::Mutex;
 
 pub struct Visualization {
     client: VisualizationServiceClient<tonic::transport::Channel>,
@@ -17,13 +21,13 @@ impl Visualization {
         Ok(client)
     }
 
-    pub async fn new(server_addr: String) -> Result<Arc<Self>, tonic::transport::Error> {
+    pub async fn new(server_addr: String) -> Result<Arc<Mutex<Self>>, tonic::transport::Error> {
         println!(
             "[Visualization] Trying to connect to the server: {}",
             server_addr
         );
         match Self::connect(server_addr).await {
-            Ok(vis_client) => Ok(Arc::new(Visualization { client: vis_client })),
+            Ok(vis_client) => Ok(Arc::new(Mutex::new(Visualization { client: vis_client }))),
             Err(err) => Err(err),
         }
     }
@@ -31,12 +35,13 @@ impl Visualization {
 
 #[async_trait::async_trait]
 impl VisualizationClient for Visualization {
-    async fn send_shoulders_info(self: &Self) -> Result<(), Box<dyn std::error::Error>> {
-        // let request = tonic::Request::new(ShouldersInfo { });
-        // let response: tonic::Response<BasicResult> = self.client.send_shoulders_info(request).await?;
+    async fn send_alarm_info(
+        self: &mut Self,
+        alert: Alert,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let request = tonic::Request::new(alert);
+        let _response: tonic::Response<ProtoResult> =
+            self.client.handle_alert_notif(request).await?;
         Ok(())
     }
 }
-
-unsafe impl Sync for Visualization {}
-unsafe impl Send for Visualization {}

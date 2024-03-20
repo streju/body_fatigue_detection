@@ -42,6 +42,7 @@ img_processing/src/proto_generated
 # visualization
 visualization/build*
 visualization/src/proto_include
+visualization/deps/grpc
 
 # data_analysis
 /data_analysis/target

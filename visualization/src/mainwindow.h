@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QMainWindow>
 
+#include "utils/Alert.hpp"
 #include "utils/Image.hpp"
 
 QT_BEGIN_NAMESPACE
@@ -27,6 +28,7 @@ public:
 
 public slots:
     void handleImageNotif(const utils::Image &img);
+    void handleAlertNotif(const utils::Alert &alert);
 
 private:
     Ui::MainWindow *ui;

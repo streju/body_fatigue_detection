@@ -1,4 +1,5 @@
 use std::sync::Arc;
+use tokio::sync::Mutex;
 
 use super::{
     grpc::{listener::GrpcDataListener, visualization_client::Visualization},
@@ -38,7 +39,7 @@ impl Builder {
 
     pub async fn get_visualization_client(
         self: &Self,
-    ) -> Result<Arc<dyn VisualizationClient>, tonic::transport::Error> {
+    ) -> Result<Arc<Mutex<dyn VisualizationClient>>, tonic::transport::Error> {
         // if grpc
         let vis_client = Visualization::new(self.visualization_addr.clone()).await?;
         Ok(vis_client)

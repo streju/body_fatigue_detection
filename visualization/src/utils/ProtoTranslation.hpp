@@ -1,9 +1,14 @@
 #pragma once
 
+#include <QDebug>
 #include <QImage>
+#include <QString>
 #include <opencv2/opencv.hpp>
 
+#include "proto_include/alerts.pb.h"
 #include "proto_include/image.pb.h"
+
+#include "utils/Alert.hpp"
 #include "utils/Image.hpp"
 
 namespace visualization
@@ -26,6 +31,24 @@ inline Image toCustomImage(const ::img_common::Image &protoImg)
                   const_cast<char *>(protoImg.data().c_str()));
     return {{(uchar *)imgCv.data, imgCv.cols, imgCv.rows, qsizetype(imgCv.step), QImage::Format_RGB888},
             imgType(protoImg.type())};
+}
+
+inline QString alertMsgFromType(const ::alerts::AlertType &protoAlertType)
+{
+    switch (protoAlertType)
+    {
+    case ::alerts::AlertType::ShoulderPose:
+        return "Uncomfortable shoulders position";
+    default:
+        qWarning() << "Cannot translate proto AlertType: " << protoAlertType
+                   << ". Returning internal translation alert.";
+        return "Internal error of alert type translation";
+    }
+}
+
+inline Alert toCustomAlert(const ::alerts::Alert *protoAlert)
+{
+    return {alertMsgFromType(protoAlert->type()), protoAlert->action() == ::alerts::Action::Start};
 }
 
 } // namespace translation

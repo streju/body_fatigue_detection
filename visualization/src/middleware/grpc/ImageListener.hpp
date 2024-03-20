@@ -11,6 +11,7 @@
 #include "proto_include/image.pb.h"
 #include "proto_include/visualization_service.grpc.pb.h"
 
+#include "utils/Alert.hpp"
 #include "utils/Image.hpp"
 
 namespace visualization
@@ -33,6 +34,7 @@ protected:
 
 signals:
     void CameraFrameNotif(const utils::Image &);
+    void CameraAlertNotif(const utils::Alert &);
 
 private:
     class Impl : public visualization::VisualizationService::Service
@@ -44,9 +46,13 @@ private:
         grpc::Status HandleImageNotif(grpc::ServerContext *contex,
                                       const ::img_common::CameraFrame *request,
                                       ::common::Result *response) override;
+        grpc::Status HandleAlertNotif(grpc::ServerContext *contex,
+                                      const ::alerts::Alert *request,
+                                      ::common::Result *response) override;
     };
 
     void emitCameraFrameNotif(const utils::Image &img);
+    void emitAlertNotif(const utils::Alert &alert);
     std::string addr_;
 };
 

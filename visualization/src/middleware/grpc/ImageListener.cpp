@@ -30,12 +30,27 @@ void ImageListener::emitCameraFrameNotif(const utils::Image &img)
     emit CameraFrameNotif(img);
 }
 
+void ImageListener::emitAlertNotif(const utils::Alert &alert)
+{
+    emit CameraAlertNotif(alert);
+}
+
 grpc::Status ImageListener::Impl::HandleImageNotif(grpc::ServerContext *contex,
                                                    const ::img_common::CameraFrame *request,
                                                    ::common::Result *response)
 {
     qInfo() << "Got Image. Image height: " << request->image().height() << " , width: " << request->image().width();
     parent_.emitCameraFrameNotif(utils::translation::toCustomImage(request->image()));
+    response->set_status(::common::Status::Succeeded);
+    return grpc::Status::OK;
+}
+
+grpc::Status ImageListener::Impl::HandleAlertNotif(grpc::ServerContext *contex,
+                                                   const ::alerts::Alert *request,
+                                                   ::common::Result *response)
+{
+    qInfo() << "Got AlertNotif";
+    parent_.emitAlertNotif(utils::translation::toCustomAlert(request));
     response->set_status(::common::Status::Succeeded);
     return grpc::Status::OK;
 }

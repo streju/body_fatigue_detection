@@ -13,4 +13,6 @@ pub mod visualization {
 pub mod img_common {
     tonic::include_proto!("img_common");
 }
-
+pub mod alerts {
+    tonic::include_proto!("alerts");
+}

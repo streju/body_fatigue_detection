@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
 
     QObject::connect(
         &listener, &middleware::ImageListener::CameraFrameNotif, &mainWindow, &MainWindow::handleImageNotif);
+    QObject::connect(
+        &listener, &middleware::ImageListener::CameraAlertNotif, &mainWindow, &MainWindow::handleAlertNotif);
 
     mainWindow.show();
     listener.start();

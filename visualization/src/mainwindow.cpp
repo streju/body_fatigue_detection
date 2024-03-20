@@ -29,4 +29,25 @@ void MainWindow::handleImageNotif(const utils::Image &img)
     }
 }
 
+void MainWindow::handleAlertNotif(const utils::Alert &alert)
+{
+    qDebug() << "MainWindow received alert: " << alert.msg << ", action: " << (alert.isStart ? "start" : "stop");
+
+    if (alert.isStart)
+    {
+        if (ui->active_alerts_list->findItems(alert.msg, Qt::MatchStartsWith).empty())
+        {
+            ui->active_alerts_list->addItem(alert.msg);
+        }
+    }
+    else
+    {
+        if (auto it = ui->active_alerts_list->findItems(alert.msg, Qt::MatchStartsWith).first())
+        {
+            delete it;
+        }
+        // TODO: error should not happen
+    }
+}
+
 } // namespace visualization

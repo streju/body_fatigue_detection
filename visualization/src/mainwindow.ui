@@ -65,14 +65,14 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="active_alerts_label">
              <property name="text">
-              <string>Alerts</string>
+              <string>Active alerts:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QTextBrowser" name="textBrowser"/>
+            <widget class="QListWidget" name="active_alerts_list"/>
            </item>
           </layout>
          </item>

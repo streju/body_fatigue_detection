@@ -1,31 +1,23 @@
 use super::shoulders_analyzer::ShouldersAnalyzer;
 use super::types::ShouldersCoordinatesInput;
-use crate::middleware::types::VisualizationClient;
+use crate::alerts_reporter::AlertsReporter;
 use std::sync::Arc;
 pub struct DetectionEntryPoint {
-    workers: rayon::ThreadPool,
-    visualization_client: Arc<dyn VisualizationClient>,
-    shoulders_analyzer: Arc<ShouldersAnalyzer>,
+    shoulders_analyzer: ShouldersAnalyzer,
 }
 
 impl DetectionEntryPoint {
-    pub fn new(workers_nr: usize, visualization: &Arc<dyn VisualizationClient>) -> Arc<Self> {
+    pub fn new(alerts_reporter: &Arc<AlertsReporter>) -> Arc<Self> {
         Arc::new(DetectionEntryPoint {
-            workers: rayon::ThreadPoolBuilder::new()
-                .num_threads(workers_nr)
-                .build()
-                .unwrap(),
-            visualization_client: Arc::clone(visualization),
-            shoulders_analyzer: Arc::new(ShouldersAnalyzer {}),
+            shoulders_analyzer: ShouldersAnalyzer::new(&alerts_reporter),
         })
     }
 
-    pub fn start_shoulders_analysis(self: &Self, shoulders_coordinates: ShouldersCoordinatesInput) {
-        // start workers
-        self.workers.install(|| {
-            self.shoulders_analyzer
-                .as_ref()
-                .analyze(shoulders_coordinates)
-        })
+    pub async fn start_shoulders_analysis(
+        self: &Self,
+        shoulders_coordinates: ShouldersCoordinatesInput,
+    ) {
+        // TODO: consider spawn and drop new tokio runtime task here
+        self.shoulders_analyzer.analyze(shoulders_coordinates).await;
     }
 }

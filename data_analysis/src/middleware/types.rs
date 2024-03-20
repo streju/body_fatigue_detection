@@ -1,3 +1,4 @@
+use super::grpc::proto::alerts::Alert;
 use async_trait::async_trait;
 
 #[async_trait]
@@ -7,5 +8,8 @@ pub trait DataListener {
 
 #[async_trait]
 pub trait VisualizationClient: Sync + Send {
-    async fn send_shoulders_info(self: &Self) -> Result<(), Box<dyn std::error::Error>>;
+    async fn send_alarm_info(
+        self: &mut Self,
+        alert: Alert,
+    ) -> Result<(), Box<dyn std::error::Error>>;
 }
