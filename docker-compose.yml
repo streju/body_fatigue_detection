@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  grpc_cpp:
+    build:
+      context: ./visualization/deps
+      dockerfile: Dockerfile.grpc
+  visualization:
+    build:
+      dockerfile: visualization/Dockerfile
+    depends_on:
+      - grpc_cpp
+    user: qtuser
+    network_mode: host
+    devices:
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/video0:/dev/video0
+    environment:
+      - DISPLAY=$DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+  data_analysis:
+    build:
+      dockerfile: data_analysis/Dockerfile
+    network_mode: host
+    depends_on:
+      - visualization
+  image_procesing:
+    build:
+      dockerfile: img_processing/Dockerfile
+    network_mode: host
+    devices:
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/video0:/dev/video0
+    user: qtuser
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on:
+      - visualization
+      - data_analysis

@@ -1,4 +1,4 @@
-FROM grpc_cpp:latest
+FROM body_fatigue_detection-grpc_cpp:latest
 
 RUN adduser --quiet --disabled-password qtuser && usermod -a -G audio -G video qtuser
 
@@ -21,3 +21,5 @@ RUN cd deps && ln -s ../../grpc grpc
 
 RUN cmake -S . -B build
 RUN cmake --build build --target all
+
+CMD ["./build/src/bfd_visualization"]

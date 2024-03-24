@@ -34,7 +34,17 @@ Used communication protocol and endpoints are defined in [config.json](/config.j
 - grpc
 
 ## Setup
-TODO
+To run application on Unix-like system type in terminal:
+```console
+docker compose up -d
+```
+
+Due to visualization all services in Docker containers are running on host network<br><br>
+**_NOTE:_** To spped up the image building it's recommended to comment out the "depends_on" block for data_analysis and img_processing in [docker-compose.yml](/docker-compose.yml) and then run in terminal:
+```console
+docker compose build --parallel
+```
+After successfully build, restore commented dependencies and run compose using up command.
 
 ## Development status
 - Docker images - ✅

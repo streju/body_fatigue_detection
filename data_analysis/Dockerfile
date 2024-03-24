@@ -9,4 +9,4 @@ COPY data_analysis .
 COPY config.json .
 RUN cargo build
 
-# CMD ["cargo", "run"]
+CMD ["cargo", "run"]

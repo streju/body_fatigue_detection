@@ -36,4 +36,4 @@ RUN pip install mediapipe
 RUN python fix_proto_import_path.py
 RUN ./generate_proto_files.sh
 
-# CMD ["python", "src/app.py", "--communication=grpc"]
+CMD ["python", "src/app.py", "--communication=grpc"]
