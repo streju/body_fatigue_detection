@@ -6,5 +6,7 @@ import public "detected_landmarks.proto";
 package img_processor;
 
 service DataProcessor {
-    rpc HandleShouldersCoordinates(landmarks.ShouldersCoordinates) returns (.common.Result) {}
+  rpc HandleShouldersCoordinates(landmarks.ShouldersCoordinates)
+      returns (.common.Result) {}
+  rpc HandleEyesCoordinates(landmarks.Eyes) returns (.common.Result) {}
 }

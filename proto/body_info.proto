@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package body_info;
+
+message Blinking { uint64 counter = 1; }
