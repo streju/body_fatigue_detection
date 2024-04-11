@@ -1,7 +1,7 @@
 import numpy as np
 
 import proto_generated.image_pb2 as image_pb2
-from common import make_proto_data_header
+from proto_translation.common import make_proto_data_header
 
 raw_img_type = 0
 debug_landmarks_img_type = 1

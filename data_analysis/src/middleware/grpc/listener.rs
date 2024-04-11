@@ -25,7 +25,6 @@ impl ProtoDataProcessor for GrpcDataListener {
         println!("HandleShouldersCoordinates, request: {:?}", request);
 
         self.data_processor
-            .as_ref()
             .start_shoulders_analysis(from_proto_shoulders_coordinates(request.get_ref()))
             .await;
 

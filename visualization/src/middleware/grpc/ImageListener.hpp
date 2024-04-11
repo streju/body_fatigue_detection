@@ -7,6 +7,7 @@
 #include <grpcpp/ext/proto_server_reflection_plugin.h>
 #include <grpcpp/grpcpp.h>
 
+#include "proto_include/body_info.pb.h"
 #include "proto_include/common.pb.h"
 #include "proto_include/image.pb.h"
 #include "proto_include/visualization_service.grpc.pb.h"
@@ -35,6 +36,7 @@ protected:
 signals:
     void CameraFrameNotif(const utils::Image &);
     void CameraAlertNotif(const utils::Alert &);
+    void BlinkingNotif(const unsigned &);
 
 private:
     class Impl : public visualization::VisualizationService::Service
@@ -49,10 +51,15 @@ private:
         grpc::Status HandleAlertNotif(grpc::ServerContext *contex,
                                       const ::alerts::Alert *request,
                                       ::common::Result *response) override;
+        grpc::Status HandleBlinkingNotif(grpc::ServerContext *contex,
+                                         const ::body_info::Blinking *request,
+                                         ::common::Result *response) override;
     };
 
     void emitCameraFrameNotif(const utils::Image &img);
     void emitAlertNotif(const utils::Alert &alert);
+    void emitBlinkingNotif(const unsigned &counter);
+
     std::string addr_;
 };
 

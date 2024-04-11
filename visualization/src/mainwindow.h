@@ -29,6 +29,7 @@ public:
 public slots:
     void handleImageNotif(const utils::Image &img);
     void handleAlertNotif(const utils::Alert &alert);
+    void handleBlinkingNotif(const unsigned &counter);
 
 private:
     Ui::MainWindow *ui;

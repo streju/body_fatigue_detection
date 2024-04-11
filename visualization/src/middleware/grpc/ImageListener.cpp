@@ -35,6 +35,11 @@ void ImageListener::emitAlertNotif(const utils::Alert &alert)
     emit CameraAlertNotif(alert);
 }
 
+void ImageListener::emitBlinkingNotif(const unsigned &counter)
+{
+    emit BlinkingNotif(counter);
+}
+
 grpc::Status ImageListener::Impl::HandleImageNotif(grpc::ServerContext *contex,
                                                    const ::img_common::CameraFrame *request,
                                                    ::common::Result *response)
@@ -51,6 +56,16 @@ grpc::Status ImageListener::Impl::HandleAlertNotif(grpc::ServerContext *contex,
 {
     qInfo() << "Got AlertNotif";
     parent_.emitAlertNotif(utils::translation::toCustomAlert(request));
+    response->set_status(::common::Status::Succeeded);
+    return grpc::Status::OK;
+}
+
+grpc::Status ImageListener::Impl::HandleBlinkingNotif(grpc::ServerContext *contex,
+                                                      const ::body_info::Blinking *request,
+                                                      ::common::Result *response)
+{
+    qInfo() << "Got Blinking";
+    parent_.emitBlinkingNotif(request->counter());
     response->set_status(::common::Status::Succeeded);
     return grpc::Status::OK;
 }

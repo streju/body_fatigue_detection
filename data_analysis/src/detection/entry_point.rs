@@ -1,7 +1,8 @@
-use super::eyes_analyzer::EyesAnalyzer;
+use super::eyes::eyes_analyzer::EyesAnalyzer;
 use super::shoulders_analyzer::ShouldersAnalyzer;
 use super::types::{EyesInput, ShouldersCoordinatesInput};
 use crate::alerts_reporter::AlertsReporter;
+use crate::middleware::body_info::BodyInfo;
 use std::sync::Arc;
 
 pub struct DetectionEntryPoint {
@@ -10,10 +11,10 @@ pub struct DetectionEntryPoint {
 }
 
 impl DetectionEntryPoint {
-    pub fn new(alerts_reporter: &Arc<AlertsReporter>) -> Arc<Self> {
+    pub fn new(alerts_reporter: &Arc<AlertsReporter>, body_info: &Arc<BodyInfo>) -> Arc<Self> {
         Arc::new(DetectionEntryPoint {
             shoulders_analyzer: ShouldersAnalyzer::new(&alerts_reporter),
-            eyes_analyzer: EyesAnalyzer::new(),
+            eyes_analyzer: EyesAnalyzer::new(&body_info),
         })
     }
 

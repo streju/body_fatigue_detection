@@ -6,6 +6,8 @@ use super::grpc::proto::landmarks::{
     ShouldersCoordinates as ProtoShouldersCoordinates,
 };
 
+use super::grpc::proto::body_info::Blinking;
+
 use crate::alerts_reporter::AlertType;
 use crate::detection::types::{Coordinates, Eye, EyesInput, Iris, ShouldersCoordinatesInput};
 
@@ -69,5 +71,11 @@ fn translate_iris(iris_opt: &Option<ProtoIris>) -> Option<Iris> {
             interior: translate_single_coordinate(&iris.interior),
         }),
         None => None,
+    }
+}
+
+pub fn to_proto_blinking(blinking_counter: u32) -> Blinking {
+    Blinking {
+        counter: blinking_counter as u64,
     }
 }
