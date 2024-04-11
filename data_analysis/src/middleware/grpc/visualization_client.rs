@@ -1,4 +1,5 @@
 use super::proto::alerts::Alert;
+use super::proto::body_info::Blinking;
 use super::proto::common::Result as ProtoResult;
 use super::proto::visualization::visualization_service_client::VisualizationServiceClient;
 
@@ -42,6 +43,16 @@ impl VisualizationClient for Visualization {
         let request = tonic::Request::new(alert);
         let _response: tonic::Response<ProtoResult> =
             self.client.handle_alert_notif(request).await?;
+        Ok(())
+    }
+
+    async fn send_blinking_counter(
+        self: &mut Self,
+        blinking: Blinking,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let request = tonic::Request::new(blinking);
+        let _response: tonic::Response<ProtoResult> =
+            self.client.handle_blinking_notif(request).await?;
         Ok(())
     }
 }

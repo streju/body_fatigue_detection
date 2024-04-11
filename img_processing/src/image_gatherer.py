@@ -17,9 +17,6 @@ class ImageGatherer():
             image.flags.writeable = False
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             input_frames.put(image)
-            # cv2.imshow('IMG', cv2.flip(image, 1))
-            # if cv2.waitKey(1) & 0xFF == 27:
-            #     break
         
         cap.release()
         cv2.destroyAllWindows()

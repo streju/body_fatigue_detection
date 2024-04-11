@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
         &listener, &middleware::ImageListener::CameraFrameNotif, &mainWindow, &MainWindow::handleImageNotif);
     QObject::connect(
         &listener, &middleware::ImageListener::CameraAlertNotif, &mainWindow, &MainWindow::handleAlertNotif);
+    QObject::connect(
+        &listener, &middleware::ImageListener::BlinkingNotif, &mainWindow, &MainWindow::handleBlinkingNotif);
 
     mainWindow.show();
     listener.start();

@@ -1,18 +1,10 @@
-import time
 import numpy as np
 
-import proto_generated.common_pb2 as common_pb2
-import proto_generated.detected_landmarks_pb2 as detected_landmarks_pb2
 import proto_generated.image_pb2 as image_pb2
+from proto_translation.common import make_proto_data_header
 
 raw_img_type = 0
 debug_landmarks_img_type = 1
-
-def make_proto_cordinate(x_in: int, y_in: int):
-    return detected_landmarks_pb2.Coordinates(
-        x=x_in,
-        y=y_in
-    )
 
 
 def make_proto_image(image: np.ndarray, img_type: int):
@@ -23,12 +15,6 @@ def make_proto_image(image: np.ndarray, img_type: int):
         channels=ch,
         data=image.tobytes(),
         type=img_type)
-
-
-def make_proto_data_header():
-    return common_pb2.MsgHeader(
-        timestamp=time.time_ns()
-    )
 
 
 def make_proto_camera_frame(image: np.ndarray, img_type, camera_id=0):

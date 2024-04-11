@@ -11,3 +11,21 @@ message ShouldersCoordinates {
   optional Coordinates leftShoulder = 1;
   optional Coordinates rightShoulder = 2;
 }
+
+message Iris {
+  optional Coordinates top = 1;
+  optional Coordinates bottom = 2;
+  optional Coordinates external = 3;
+  optional Coordinates interior = 4;
+}
+
+message Eye {
+  optional Coordinates upperEyelid = 1;
+  optional Coordinates lowerEyelid = 2;
+  Iris iris = 3;
+}
+
+message Eyes {
+  Eye rightEye = 1;
+  Eye leftEye = 2;
+}

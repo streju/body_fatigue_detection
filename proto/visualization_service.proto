@@ -2,10 +2,12 @@ syntax = "proto3";
 
 import public "image.proto";
 import public "alerts.proto";
+import public "body_info.proto";
 
 package visualization;
 
 service VisualizationService {
   rpc HandleImageNotif(img_common.CameraFrame) returns (common.Result) {}
   rpc HandleAlertNotif(alerts.Alert) returns (common.Result) {}
+  rpc HandleBlinkingNotif(body_info.Blinking) returns (common.Result) {}
 }

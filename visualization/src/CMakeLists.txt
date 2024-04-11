@@ -16,6 +16,8 @@ set(PROJECT_SOURCES
     ${PROTOBUF_INC_DIR}/common.pb.cc
     ${PROTOBUF_INC_DIR}/image.grpc.pb.cc
     ${PROTOBUF_INC_DIR}/image.pb.cc
+    ${PROTOBUF_INC_DIR}/body_info.grpc.pb.cc
+    ${PROTOBUF_INC_DIR}/body_info.pb.cc
     ${PROTOBUF_INC_DIR}/visualization_service.grpc.pb.cc
     ${PROTOBUF_INC_DIR}/visualization_service.pb.cc
 )

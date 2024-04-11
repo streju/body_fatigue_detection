@@ -50,4 +50,10 @@ void MainWindow::handleAlertNotif(const utils::Alert &alert)
     }
 }
 
+void MainWindow::handleBlinkingNotif(const unsigned &counter)
+{
+    qDebug() << "MainWindow received blinking notif.";
+    ui->blinking_counter_nr->setText(QString::number(counter));
+}
+
 } // namespace visualization
